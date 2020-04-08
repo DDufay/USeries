@@ -28,7 +28,11 @@ header {
 }
 
 @media screen and (max-width: 750px) {
-  header {
+  header span {
+    display: none;
+  }
+
+  header .nav-item:last-child {
     display: none;
   }
 }

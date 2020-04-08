@@ -1,6 +1,5 @@
 import {Movie} from "../models/Movie";
 import {makeActionCreator} from "../helpers/helper";
-import {SerieDetail} from "../models/SerieDetail";
 
 // Popular movies
 export const FETCH_POPULAR_MOVIES_REQUEST = 'FETCH_POPULAR_MOVIES_REQUEST';

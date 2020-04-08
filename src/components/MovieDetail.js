@@ -3,11 +3,6 @@ import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router";
 
-import {getSerieDetailsById, getSerieVideoBySerieId} from "../actions/series";
-import {getSerieDetails} from "../reducers/series";
-import {SerieDetailItem} from "./SerieDetailItem";
-import {SerieTabsEnum} from "../Enum/SerieTabsEnum";
-import {SerieSeasonItem} from "./SerieSeasonItem";
 import {getMovieDetail} from "../reducers/movies";
 import {getMovieDetailsById, getMovieVideoById} from "../actions/movies";
 import moment from "moment";
@@ -26,9 +21,7 @@ export const MovieDetail = () => {
         dispatch(getMovieDetailsById(id));
         dispatch(getMovieVideoById(id));
     }, [id]);
-
-    const time = (movie.runtime / 60).toString().split('.');
-
+    
     return  <div className="serie-detail">
         <div
             className="picture"

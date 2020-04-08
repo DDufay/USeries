@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import moment from 'moment';
 import {useDispatch} from "react-redux";
 
 import {getSerieSeasonById} from "../actions/series";
@@ -7,7 +6,6 @@ import {SerieSeasonEpisode} from "./SerieSaisonEpisode";
 
 export const SerieSeasonItem = ({ serie }) => {
     const [tab, setTab] = useState(serie.seasons[0].id);
-    const [isWatched, setWatched] = useState(false);
     const dispatch = useDispatch();
 
     const onSeasonCLick = season => {
