@@ -1,5 +1,6 @@
 import {Movie} from "../models/Movie";
 import {makeActionCreator} from "../helpers/helper";
+import {SerieDetail} from "../models/SerieDetail";
 
 // Popular movies
 export const FETCH_POPULAR_MOVIES_REQUEST = 'FETCH_POPULAR_MOVIES_REQUEST';
@@ -37,4 +38,35 @@ export const getLatestMovies = () => dispatch => {
         .then(response => response.json())
         .then(json => dispatch(getLatestMoviesList(json.results.map(Movie))))
     ;
+};
+
+// Movie details
+export const FETCH_MOVIE_DETAILS_REQUEST = 'FETCH_MOVIE_DETAILS_REQUEST';
+export const FETCH_MOVIE_DETAILS_SUCCESS = 'FETCH_MOVIE_DETAILS_SUCCESS';
+
+export const fetchMovieDetails = makeActionCreator(FETCH_MOVIE_DETAILS_REQUEST);
+export const getMovieDetails = makeActionCreator(FETCH_MOVIE_DETAILS_SUCCESS, 'movie');
+
+export const getMovieDetailsById = movieId => dispatch => {
+    dispatch(fetchMovieDetails());
+
+    return fetch(`${process.env.REACT_APP_MOVIE_DB}movie/${movieId}?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&language=fr-FR`)
+        .then(response => response.json())
+        .then(json => dispatch(getMovieDetails(Movie(json))))
+};
+
+
+// Movie video
+export const FETCH_MOVIE_VIDEO_REQUEST = 'FETCH_MOVIE_VIDEO_REQUEST';
+export const FETCH_MOVIE_VIDEO_SUCCESS = 'FETCH_MOVIE_VIDEO_SUCCESS';
+
+export const fetchMovieVideo = makeActionCreator(FETCH_MOVIE_VIDEO_REQUEST);
+export const getMovieVideo = makeActionCreator(FETCH_MOVIE_VIDEO_SUCCESS, 'video');
+
+export const getMovieVideoById = serieId => dispatch => {
+    dispatch(fetchMovieVideo());
+
+    return fetch(`${process.env.REACT_APP_MOVIE_DB}movie/${serieId}/videos?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&language=fr-FR`)
+        .then(response => response.json())
+        .then(json => dispatch(getMovieVideo(json.results)))
 };

@@ -49,6 +49,7 @@ export const Series = () => {
                 isSearching={state.isSearching}
                 movies={popularSeries}
                 springStyle={style}
+                type="serie"
             />
         </div>
         <div className="show-movies">
@@ -57,6 +58,7 @@ export const Series = () => {
                 <Results
                     isSearching={state.isSearching}
                     movies={latestSeries}
+                    type="serie"
                 />
             </div>
         </div>

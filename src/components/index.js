@@ -58,10 +58,10 @@ const FavoriteBtn = ({ toggleFavorite, movie }) => {
     );
 };
 
-const Result = ({ movie }) => {
+const Result = ({ movie, type }) => {
     return (
         <div className="movie">
-            <Link to={`serie/${movie.id}`}>
+            <Link to={`${type}/${movie.id}`}>
                 <div
                     className="poster"
                     style={{
@@ -105,17 +105,17 @@ const SearchForm = ({ onTextChange }) => {
     );
 };
 
-const Results = ({ movies }) => {
+const Results = ({ movies, type }) => {
     if (movies.length === 0) {
         return <p>No results :(</p>;
     }
 
     return movies.slice(0, 12).map((movie, key) => {
-        return <Result key={key} movie={movie} />;
+        return <Result key={key} movie={movie} type={type} />;
     });
 };
 
-const ResultsScrollable = ({ movies, springStyle }) => {
+const ResultsScrollable = ({ movies, springStyle, type }) => {
 
     if (movies.length === 0) {
         return <p>No results :(</p>;
@@ -123,7 +123,7 @@ const ResultsScrollable = ({ movies, springStyle }) => {
 
     return movies.map((movie, key) => {
         return <animated.div className="movie" key={key} style={springStyle}>
-            <Link to={`serie/${movie.id}`}>
+            <Link to={`${type}/${movie.id}`}>
                 <div
                     className="poster"
                     style={{

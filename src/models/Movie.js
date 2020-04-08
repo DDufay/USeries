@@ -6,5 +6,8 @@ export const Movie = data => {
         overview: data.overview || '',
         vote: data.vote_average || '',
         picture: data.poster_path ? process.env.REACT_APP_MOVIE_DB_IMG + 'w300' + data.poster_path : process.env.PUBLIC_URL + '/placeholder.png',
+        tagline: data.tagline || '',
+        runtime: data.runtime || '',
+        genres: data.genres || ''
     }
 };

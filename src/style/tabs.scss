@@ -1,11 +1,12 @@
 .tabs {
     display: flex;
+    flex-wrap: wrap;
     padding: 10px 0;
 
     .tab {
         border-bottom: 3px solid white;
         text-transform: capitalize;
-        margin: 0 10px;
+        margin: 0 10px 5px;
 
         &:first-child {
             margin-left: 0;

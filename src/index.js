@@ -18,6 +18,7 @@ import {Movies} from "./components/Movies";
 import {Series} from "./components/Series";
 import {Groups} from "./components/Groups";
 import {SerieDetail} from "./components/SerieDetail";
+import {MovieDetail} from "./components/MovieDetail";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -27,6 +28,7 @@ ReactDOM.render(
               <HomeRoute exact path="/login" component={Login} />
               <Route exact path="/series" component={() => <App><Series/></App>} />
               <Route exact path="/serie/:id" component={() => <App><SerieDetail/></App>} />
+              <Route exact path="/movie/:id" component={() => <App><MovieDetail /></App>} />
               <Route exact path="/groups" component={() => <App><Groups/></App>} />
               <HomeRoute exact path="/register" component={Register} />
               <HomeRoute exact path="/reset-password" component={ResetPassword} />
