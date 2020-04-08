@@ -1,0 +1,15 @@
+.form {
+    &__error {
+        position: absolute;
+        color: red;
+
+        &:before {
+            content: "⚠ ";
+            display: inline;
+        }
+    }
+}
+
+.has-error {
+    border: 1px solid red !important;
+}

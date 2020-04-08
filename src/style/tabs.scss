@@ -1,0 +1,18 @@
+.tabs {
+    display: flex;
+    padding: 10px 0;
+
+    .tab {
+        border-bottom: 3px solid white;
+        text-transform: capitalize;
+        margin: 0 10px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &-active {
+            border-bottom: 3px solid #e67e22;
+        }
+    }
+}

@@ -1,0 +1,99 @@
+.movies {
+    .lastest-movies {
+        font-size: 20px;
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    .movie-list-scrollable {
+        display: flex;
+        overflow-x: scroll;
+        padding: 20px 0;
+
+        @media screen and (max-width: 750px) {
+            .movie {
+                margin: 0 20px;
+                flex-shrink: 0;
+
+                &-detail {
+                    width: 100% !important;
+                }
+
+                .poster {
+                    width: 270px !important;
+                    height: 180px !important;
+                }
+            }
+        }
+    }
+
+    .movie-list {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        @media screen and (max-width: 750px) {
+            .movie {
+                flex: 25%;
+                margin: 0 10px 25px !important;
+
+                &-detail {
+                    width: 104px !important;
+                }
+
+                .poster {
+                    width: 104px !important;
+                    height: 140px !important;
+                }
+            }
+        }
+    }
+
+    .movie-list-scrollable, .movie-list {
+        .movie {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 25px 25px;
+
+            &-detail {
+                width: 100%;
+            }
+
+            h2 {
+                max-width: 200px;
+                margin-top: 5px;
+                font-size: 16px;
+                text-align: left;
+            }
+
+            .vote-rate {
+                font-size: 14px;
+
+                i {
+                    color: #ffc107;
+                    box-shadow: 0 5px 25px 0 rgba(123, 123, 123, 0.15);
+                }
+            }
+
+            .poster {
+                width: 200px;
+                height: 300px;
+                border-radius: 20px;
+                box-shadow: 0 5px 25px 0 rgba(123, 123, 123, 0.15);
+            }
+
+            @media screen and (max-width: 750px) {
+                h2 {
+                    font-size: 12px;
+                    text-align: center;
+                }
+
+                .vote-rate {
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+
+}
