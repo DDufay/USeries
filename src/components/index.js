@@ -1,37 +1,55 @@
 import React from "react";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import { animated } from "react-spring";
+import { isEmpty } from 'lodash';
 
 import {postEntity} from "../api/Database";
 import {Collections} from "../api/Collections";
 import {useDispatch, useSelector} from "react-redux";
 import {getFavoritesEntities} from "../reducers/favorites";
 import {deleteFavorite, getFavorites} from "../actions/favorites";
+import {signOut} from "../api/Auth";
 
 export const Header = ({ currentUser }) => {
     const location = useLocation();
+
+    const onLogout = () => {
+        signOut();
+        window.location.reload();
+    };
 
     return (
         <header>
             <span>USeries</span>
             <div className="nav">
                 <Link to="/" className={`nav-item${location.pathname === '/' ? '-active' : ''}`}>
-                    <i className="fas fa-film" /> &nbsp; Films
+                    <i className="fas fa-film" /> &nbsp; <span className="menu-item">Films</span>
                 </Link>
                 <Link to="/series" className={`nav-item${location.pathname === '/series' ? '-active' : ''}`}>
-                    <i className="fas fa-video" /> &nbsp; Séries
+                    <i className="fas fa-video" /> &nbsp; <span className="menu-item">Séries</span>
                 </Link>
-                <Link to="/groups" className={`nav-item${location.pathname === '/groups' ? '-active' : ''}`}>
-                    <i className="fas fa-comments" /> &nbsp; Groupes
-                </Link>
+                {/*<Link to="/groups" className={`nav-item${location.pathname === '/groups' ? '-active' : ''}`}>*/}
+                {/*    <i className="fas fa-comments" /> &nbsp; Groupes*/}
+                {/*</Link>*/}
             </div>
-            {!currentUser
-                ? <Link className="nav-item" to="/login">
-                    <i className="fas fa-sign-in-alt" aria-hidden="true" /> &nbsp; login
-                </Link>
-                : <Link className="nav-item" to="/profile">
-                    <i className="fas fa-user" aria-hidden="true" /> &nbsp; DYLAN
-                </Link>
+            {isEmpty(currentUser)
+                ?
+                <div>
+                    <Link className="nav-item" to="/login">
+                        <i className="fas fa-sign-in-alt" aria-hidden="true"/> &nbsp; <span className="menu-item">Connexion</span>
+                    </Link>
+                    <Link className="nav-item" to="/register">
+                        <i className="fas fa-sign-in-alt" aria-hidden="true"/> &nbsp; <span className="menu-item">Inscription</span>
+                    </Link>
+                </div>
+                : <div className="flex">
+                    <Link className="nav-item" to="/profile">
+                        <i className="fas fa-user" aria-hidden="true"/> &nbsp; <span className="menu-item">profil</span>
+                    </Link>
+                    <div onClick={onLogout} className="logout">
+                        <i className="fas fa-sign-in-alt" aria-hidden="true"/> &nbsp; <span className="menu-item">Déconnexion</span>
+                    </div>
+                </div>
             }
         </header>
     );
@@ -76,9 +94,8 @@ const Result = ({ movie, type }) => {
                 </a><br/>
                 <div className="flex justify-space-between">
                     <div className="vote-rate">{movie.date.slice(0,4)}</div>
-                    <div className="vote-rate"><i className="fas fa-star" /> {movie.vote.toFixed(1)}</div>
+                    <div className="vote-rate"><i className="fas fa-star" /> {movie.vote}</div>
                 </div>
-                {/*<p>{movie.overview}</p>*/}
             </div>
             {/*<FavoriteBtn activeLink={activeLink} movie={movie} />*/}
         </div>
@@ -110,13 +127,12 @@ const Results = ({ movies, type }) => {
         return <p>No results :(</p>;
     }
 
-    return movies.slice(0, 12).map((movie, key) => {
+    return movies.map((movie, key) => {
         return <Result key={key} movie={movie} type={type} />;
     });
 };
 
 const ResultsScrollable = ({ movies, springStyle, type }) => {
-
     if (movies.length === 0) {
         return <p>No results :(</p>;
     }
@@ -138,7 +154,7 @@ const ResultsScrollable = ({ movies, springStyle, type }) => {
                 </a><br/>
                 <div className="flex justify-space-between">
                     <div className="vote-rate">{movie.date.slice(0,4)}</div>
-                    <div className="vote-rate"><i className="fas fa-star" /> {movie.vote.toFixed(1)}</div>
+                    <div className="vote-rate"><i className="fas fa-star" /> {movie.vote}</div>
                 </div>
             </div>
         </animated.div>;

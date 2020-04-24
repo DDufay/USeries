@@ -9,14 +9,9 @@ export const FETCH_POPULAR_SERIES_SUCCESS = 'FETCH_POPULAR_SERIES_SUCCESS';
 export const fetchPopularSeriesList = makeActionCreator(FETCH_POPULAR_SERIES_REQUEST);
 export const getPopularSeriesList = makeActionCreator(FETCH_POPULAR_SERIES_SUCCESS, 'series');
 
-export const getPopularSeries = queryDebounce => dispatch => {
+export const getPopularSeries = () => dispatch => {
     dispatch(fetchPopularSeriesList());
-    let url;
-    // if (queryDebounce) {
-    //     url = `${process.env.REACT_APP_MOVIE_DB}search/movie?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&language=fr-FR&query=${queryDebounce}`;
-    // } else {
-        url = `${process.env.REACT_APP_MOVIE_DB}tv/popular?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&language=fr-FR&page=1`;
-    // }
+    const url = `${process.env.REACT_APP_MOVIE_DB}tv/popular?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&language=fr-FR&page=1`;
 
     return fetch(url)
         .then(response => response.json())
@@ -83,4 +78,30 @@ export const getSerieVideoBySerieId = serieId => dispatch => {
     return fetch(`${process.env.REACT_APP_MOVIE_DB}tv/${serieId}/season/1/videos?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&language=fr-FR`)
         .then(response => response.json())
         .then(json => dispatch(getSerieVideo(json.results)))
+};
+
+// Search serie
+
+export const SEARCH_SERIES_REQUEST = 'SEARCH_SERIES_REQUEST';
+export const SEARCH_SERIES_SUCCESS = 'SEARCH_SERIES_SUCCESS';
+
+export const searchSeriesList = makeActionCreator(SEARCH_SERIES_REQUEST);
+export const getSearchSeriesList = makeActionCreator(SEARCH_SERIES_SUCCESS, 'series');
+export const searchSeries = queryDebounce => dispatch => {
+    dispatch(searchSeriesList());
+
+    if (queryDebounce) {
+        return fetch(`${process.env.REACT_APP_MOVIE_DB}search/tv?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&language=fr-FR&query=${queryDebounce}`)
+            .then(response => response.json())
+            .then(json => dispatch(getSearchSeriesList(json.results.map(Serie))))
+            ;
+    }
+};
+
+export const RESET_SEARCH_SERIES_SUCCESS = 'RESET_SEARCH_SERIES_SUCCESS';
+
+export const resetSearchSeries = makeActionCreator(RESET_SEARCH_SERIES_SUCCESS, 'movies');
+export const resetResearch = () => dispatch => {
+    dispatch(resetSearchSeries([]));
+
 };

@@ -1,21 +1,22 @@
 import React, {useRef} from "react";
 import { useForm } from "react-hook-form";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 import {RenderField} from "../validations/form";
 import {ValidateEmail, ValidateLength, ValidateSameValue} from "../validations";
 import {sendEmailVerification, singUp} from "../api/Auth";
 
 export const Register = () => {
+  const history = useHistory();
   const {register, handleSubmit, errors, watch, reset} = useForm();
   const password = useRef({});
   password.current = watch("password", "");
   const onSubmit = user => {
     singUp(user)
         .then(() => {
-          console.log('success');
           reset({ email: "", password: "", confirmPassword: "" });
           sendEmailVerification();
+          history.push('/login');
         })
         .catch(error => console.error(error))
     ;

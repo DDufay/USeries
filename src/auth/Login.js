@@ -1,15 +1,30 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
-// import * as Auth from "../../config/api/Auth";
 import {RenderField} from "../validations/form";
 import {ValidateNotEmpty} from "../validations";
+import {singIn} from "../api/Auth";
+import {User} from "../models/User";
+import {loginUser} from "../actions/users";
+import {useDispatch} from "react-redux";
 
 export const Login = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const {register, handleSubmit, errors} = useForm();
+
   const onSubmit = data => {
-    console.log(data);
+    singIn(data)
+        .then(user => {
+          dispatch(loginUser(User(user)));
+          localStorage.setItem('isLoggedIn', true);
+          history.push('/');
+        })
+        .catch(() => {
+          dispatch(loginUser(null));
+          localStorage.removeItem('isLoggedIn');
+        })
   };
 
   return <div className="login-page">
@@ -17,8 +32,8 @@ export const Login = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="login-title">USeries</div>
           <RenderField
-              label="Nom d'utilisateur"
-              name="username"
+              label="Email"
+              name="email"
               form={register({ validate: value => ValidateNotEmpty(value) })}
               type="text"
               error={errors.username}
