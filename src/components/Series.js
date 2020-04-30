@@ -44,6 +44,14 @@ export const Series = () => {
         });
     };
 
+    const onClear = () => {
+        setState({
+            ...state,
+            query: "",
+            isSearching: false
+        })
+    };
+
     const clamp = (value, clampAt = 30) => {
         if (value > 0) {
             return value > clampAt ? clampAt : value;
@@ -64,7 +72,7 @@ export const Series = () => {
     });
 
     return <div className="movies">
-        <SearchForm onTextChange={onTextChange} />
+        <SearchForm onTextChange={onTextChange} value={state.query} onClear={onClear} />
         {state.query === "" && <React.Fragment>
             <div className="lastest-movies">Séries populaires</div>
             <div className="movie-list-scrollable" {...bind()}>

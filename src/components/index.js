@@ -39,7 +39,7 @@ export const Header = ({ currentUser }) => {
                         <i className="fas fa-sign-in-alt" aria-hidden="true"/> &nbsp; <span className="menu-item">Connexion</span>
                     </Link>
                     <Link className="nav-item" to="/register">
-                        <i className="fas fa-sign-in-alt" aria-hidden="true"/> &nbsp; <span className="menu-item">Inscription</span>
+                        <i className="fas fa-user-plus" aria-hidden="true"/> &nbsp; <span className="menu-item">Inscription</span>
                     </Link>
                 </div>
                 : <div className="flex">
@@ -47,7 +47,7 @@ export const Header = ({ currentUser }) => {
                         <i className="fas fa-user" aria-hidden="true"/> &nbsp; <span className="menu-item">profil</span>
                     </Link>
                     <div onClick={onLogout} className="logout">
-                        <i className="fas fa-sign-in-alt" aria-hidden="true"/> &nbsp; <span className="menu-item">Déconnexion</span>
+                        <i className="fas fa-sign-out-alt" aria-hidden="true"/> &nbsp; <span className="menu-item">Déconnexion</span>
                     </div>
                 </div>
             }
@@ -102,23 +102,23 @@ const Result = ({ movie, type }) => {
     );
 };
 
-const SearchForm = ({ onTextChange }) => {
+const SearchForm = ({ onTextChange, value, onClear }) => {
     return (
-        <form className="search" onSubmit={e => console.log(`searching query`)}>
+        <div className="search">
             <div>
                 <input
                     type="text"
                     id="title"
                     placeholder="Search movie title..."
-                    defaultValue=""
+                    value={value}
                     onChange={onTextChange}
                 />
-                <button type="submit" className="btn btn-danger">
-                    <i className="fas fa-search" />
-                </button>
+                <div onClick={onClear} className="btn btn-danger">
+                    <i className="fas fa-times" />
+                </div>
             </div>
             <p className="error" />
-        </form>
+        </div>
     );
 };
 
