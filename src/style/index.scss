@@ -4,9 +4,16 @@
     font-weight: bold;
 }
 
+@media screen and (max-width: 650px) {
+    .menu-item {
+        display: none;
+    }
+}
+
 @import "./form";
 @import "./login";
 @import "./nav";
 @import "./movie-list";
 @import "./serie";
 @import "./tabs";
+@import "./profile";

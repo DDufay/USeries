@@ -12,6 +12,14 @@ export const singUp = user => {
     });
 };
 
+export const singIn = user => {
+    return new Promise((resolve, reject) => {
+        auth.signInWithEmailAndPassword(user.email, user.password)
+            .then(() => resolve(true))
+            .catch(error => reject(error));
+    });
+};
+
 export const authenticateUser = () => {
     return new Promise((resolve, reject) => {
         auth.onAuthStateChanged((user) => {
@@ -29,5 +37,13 @@ export const sendEmailVerification = () => {
         console.log('email sent');
     }).catch(function(error) {
         console.error(error);
+    });
+};
+
+export const signOut = () => {
+    auth.signOut().then(() => {
+    //    todo toastr
+    }).catch((error) => {
+        //    todo toastr
     });
 };

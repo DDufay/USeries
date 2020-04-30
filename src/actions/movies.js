@@ -23,6 +23,31 @@ export const getPopularMovies = queryDebounce => dispatch => {
     ;
 };
 
+// Search movies
+export const SEARCH_MOVIES_REQUEST = 'SEARCH_MOVIES_REQUEST';
+export const SEARCH_MOVIES_SUCCESS = 'SEARCH_MOVIES_SUCCESS';
+
+export const searchMoviesList = makeActionCreator(SEARCH_MOVIES_REQUEST);
+export const getSearchMoviesList = makeActionCreator(SEARCH_MOVIES_SUCCESS, 'movies');
+export const searchMovies = queryDebounce => dispatch => {
+    dispatch(searchMoviesList());
+
+    if (queryDebounce) {
+        return fetch(`${process.env.REACT_APP_MOVIE_DB}search/movie?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&language=fr-FR&query=${queryDebounce}`)
+            .then(response => response.json())
+            .then(json => dispatch(getSearchMoviesList(json.results.map(Movie))))
+        ;
+    }
+};
+
+export const RESET_SEARCH_MOVIES_SUCCESS = 'RESET_SEARCH_MOVIES_SUCCESS';
+
+export const resetSearchMovies = makeActionCreator(RESET_SEARCH_MOVIES_SUCCESS, 'movies');
+export const resetResearch = () => dispatch => {
+    dispatch(resetSearchMovies([]));
+
+};
+
 // Lastest movies
 export const FETCH_LATEST_MOVIES_REQUEST = 'FETCH_LATEST_MOVIES_REQUEST';
 export const FETCH_LATEST_MOVIES_SUCCESS = 'FETCH_LATEST_MOVIES_SUCCESS';
